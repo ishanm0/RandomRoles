@@ -1,0 +1,13 @@
+{
+    "name": "Random Roles",
+    "description": "Discord Bot for assigning roles randomly to students",
+    "version": "1.0.0",
+    "main": "bot.js",
+    "scripts": {
+        "start": "node bot.js"
+    },
+    "dependencies": {
+        "discord.js": "12.0.2",
+        "request": "2.88.2"
+    }
+}
