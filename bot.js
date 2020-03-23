@@ -60,12 +60,8 @@ function assignRandomRoles(members, guild) {
 
 function activeStudents(map) {
     var newMap = []
-    console.log(1);
     for (const k of map.values()) {
-        console.log(2);
         if (k.presence.status === 'online' && k.roles.highest.id === student) {
-            console.log(k);
-            console.log(3);
             newMap.push(k);
         }
     }
