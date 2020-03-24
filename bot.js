@@ -21,7 +21,7 @@ client.on('message', msg => {
             if (num == NaN || num > roles.length) {
                 assignRandomRoles(members, msg.guild, roles.length);
             } else {
-                assignRandomRolesNum(members, msg.guild, num);
+                assignRandomRoles(members, msg.guild, num);
             }
         });
         
