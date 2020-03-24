@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
-const roles = ["691714223960490004", "691714267614806027", "691714273822638091", "691714276552999024", "691714278008553474", "691714280394981488"]
+const roles = ["691714223960490004", "691714267614806027", "691714273822638091", "691714278008553474", "691714276552999024", "691714280394981488"];
 const student = "691702077339992138";
 const teacher = "691702216444215338";
 
@@ -18,10 +18,10 @@ client.on('message', msg => {
             var members = result;
             members = activeStudents(members);
             members = shuffle(members);
-            if (num == NaN || num > roles.length || num < 1) {
+            if (num == NaN || num > roles.length - 1 || num < 0) {
                 assignRandomRoles(members, msg.guild, roles.length);
             } else {
-                assignRandomRoles(members, msg.guild, num - 1);
+                assignRandomRoles(members, msg.guild, num);
             }
         });
         
