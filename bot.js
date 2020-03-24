@@ -18,10 +18,10 @@ client.on('message', msg => {
             var members = result;
             members = activeStudents(members);
             members = shuffle(members);
-            if (num == NaN || num > roles.length) {
+            if (num == NaN || num > roles.length || num < 1) {
                 assignRandomRoles(members, msg.guild, roles.length);
             } else {
-                assignRandomRoles(members, msg.guild, num);
+                assignRandomRoles(members, msg.guild, num - 1);
             }
         });
         
