@@ -13,11 +13,16 @@ client.on('ready', () => {
 
 client.on('message', msg => {
     if (msg.content.startsWith('!!split') && msg.member.roles.highest.id === teacher) {
+        var num = parseInt(msg.content.split(' ')[1]);
         msg.guild.members.fetch().then(function(result) {
             var members = result;
             members = activeStudents(members);
             members = shuffle(members);
-            assignRandomRoles(members, msg.guild);
+            if (num == NaN || num > roles.length) {
+                assignRandomRoles(members, msg.guild, roles.length);
+            } else {
+                assignRandomRolesNum(members, msg.guild, num);
+            }
         });
         
         msg.reply('Students split into breakout rooms!');
@@ -44,7 +49,7 @@ function removeRoles(members, guild) {
     }
 }
 
-function assignRandomRoles(members, guild) {
+function assignRandomRoles(members, guild, max) {
     var index = 0;
     for (const k of members.values()) {
         guild.roles.fetch(roles[index]).then(function (result) {
@@ -52,7 +57,7 @@ function assignRandomRoles(members, guild) {
         });
         
         index++;
-        if (index > roles.length) {
+        if (index > max) {
             index = 0;
         }
     }
