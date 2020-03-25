@@ -1,11 +1,11 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
-const roles = ["691714223960490004", "691714267614806027", "691714273822638091", "691714278008553474", "691714276552999024", "691714280394981488"];
-const student = "691702077339992138";
-const teacher = "691702216444215338";
+const roles = ['691714223960490004', '691714267614806027', '691714273822638091', '691714278008553474', '691714276552999024', '691714280394981488'];
+const student = '691702077339992138';
+const teacher = '691702216444215338';
 
-console.log(client);
+const requireActive = false;
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
@@ -18,9 +18,12 @@ client.on('message', msg => {
             var members = result;
             members = activeStudents(members);
             members = shuffle(members);
-            if (num == NaN || num > roles.length - 1 || num < 0) {
-                assignRandomRoles(members, msg.guild, roles.length);
+            console.log(num);
+            if (isNaN(num) || num > roles.length - 1 || num < 0) {
+                console.log(1);
+                assignRandomRoles(members, msg.guild, roles.length - 1);
             } else {
+                console.log(2);
                 assignRandomRoles(members, msg.guild, num);
             }
         });
@@ -53,9 +56,10 @@ function assignRandomRoles(members, guild, max) {
     var index = 0;
     for (const k of members.values()) {
         guild.roles.fetch(roles[index]).then(function (result) {
+            console.log(max);
             k.roles.add(result);
         });
-        
+
         index++;
         if (index > max) {
             index = 0;
@@ -64,9 +68,15 @@ function assignRandomRoles(members, guild, max) {
 }
 
 function activeStudents(map) {
-    var newMap = []
+    var newMap = [];
     for (const k of map.values()) {
-        if (k.presence.status === 'online' && k.roles.highest.id === student) {
+        var isStudent = false;
+        for (const r of k.roles.cache) {
+            if (r[0] === student) {
+                isStudent = true;
+            }
+        }
+        if (isStudent && (!requireActive || k.presence.status === 'online')) {
             newMap.push(k);
         }
     }
@@ -85,5 +95,3 @@ function shuffle(array) {
 
     return array;
 }
-
-client.login(process.env.BOT_TOKEN);
