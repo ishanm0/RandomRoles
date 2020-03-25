@@ -95,3 +95,5 @@ function shuffle(array) {
 
     return array;
 }
+
+client.login(process.env.BOT_TOKEN)
