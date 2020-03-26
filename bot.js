@@ -18,12 +18,9 @@ client.on('message', msg => {
             var members = result;
             members = activeStudents(members);
             members = shuffle(members);
-            console.log(num);
             if (isNaN(num) || num > roles.length - 1 || num < 0) {
-                console.log(1);
                 assignRandomRoles(members, msg.guild, roles.length - 1);
             } else {
-                console.log(2);
                 assignRandomRoles(members, msg.guild, num);
             }
         });
@@ -56,7 +53,6 @@ function assignRandomRoles(members, guild, max) {
     var index = 0;
     for (const k of members.values()) {
         guild.roles.fetch(roles[index]).then(function (result) {
-            console.log(max);
             k.roles.add(result);
         });
 
