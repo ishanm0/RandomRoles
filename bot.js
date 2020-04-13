@@ -4,6 +4,7 @@ const client = new Discord.Client();
 const roles = ['691714223960490004', '691714267614806027', '691714273822638091', '691714278008553474', '691714276552999024', '691714280394981488'];
 const student = '691702077339992138';
 const teacher = '691702216444215338';
+const senate = '692541249386971206';
 
 const requireActive = false;
 
@@ -12,7 +13,7 @@ client.on('ready', () => {
 });
 
 client.on('message', msg => {
-    if (msg.content.startsWith('!!split') && msg.member.roles.highest.id === teacher) {
+    if (msg.content.startsWith('!!split') && (msg.member.roles.highest.id === teacher || msg.member.roles.highest.id === senate)) {
         var num = parseInt(msg.content.split(' ')[1]);
         msg.guild.members.fetch().then(function(result) {
             var members = result;
@@ -28,7 +29,7 @@ client.on('message', msg => {
         msg.reply('Students split into breakout rooms!');
     }
 
-    if (msg.content.startsWith('!!combine') && msg.member.roles.highest.id === teacher) {
+    if (msg.content.startsWith('!!combine') && (msg.member.roles.highest.id === teacher || msg.member.roles.highest.id === senate)) {
         msg.guild.members.fetch().then(function(result) {
             removeRoles(result, msg.guild);
         });
