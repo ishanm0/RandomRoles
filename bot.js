@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const client = new Discord.Client();
+const client = new Discord.Client({ ws: { intents: Discord.Intents.ALL } });
 
 const roles = ['691714223960490004', '691714267614806027', '691714273822638091', '691714278008553474', '691714276552999024', '691714280394981488'];
 const student = '691702077339992138';
