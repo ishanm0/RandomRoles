@@ -24,17 +24,23 @@ client.on('message', msg => {
             } else {
                 assignRandomRoles(members, msg.guild, num);
             }
+            msg.reply('Students split into breakout rooms!');
+        }).catch(function(error) {
+            msg.reply('An error occurred.');
+            console.log(error);
         });
         
-        msg.reply('Students split into breakout rooms!');
     }
 
     if (msg.content.startsWith('!!combine') && (msg.member.roles.highest.id === teacher || msg.member.roles.highest.id === senate)) {
         msg.guild.members.fetch().then(function(result) {
             removeRoles(result, msg.guild);
+            msg.reply('Students removed from breakout rooms!');
+        }).catch(function(error) {
+            msg.reply('An error occurred.');
+            console.log(error);
         });
 
-        msg.reply('Students removed from breakout rooms!');
     }
 });
 
